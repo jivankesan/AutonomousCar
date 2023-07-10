@@ -38,5 +38,11 @@ class Network(nn.Module):
         return x
 
 
+class Dqn():
+    def __init__(self, input_size, nbaction, gamma):
+        self.gamma = gamma
+        self.
+
+
 
 
