@@ -38,6 +38,11 @@ class Network(nn.Module):
         return x
 
 
+class MemoryReplay(object):
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.memory = []
+
 class Dqn():
     def __init__(self, input_size, nbaction, gamma):
         self.gamma = gamma
