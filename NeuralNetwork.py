@@ -69,8 +69,10 @@ class Dqn():
         self.memory = MemoryReplay(100000)
         self.optimizer = optim.Adam((self.model.parameters()), lr = 0.01) #can experiment with multiple optimizers
         self.prev_state = nn.Tensor(input_size).unsqueeze(0)
-        self.prev_action =
+        self.prev_action = 0
+        self.prev_reward = 0
 
 
 
-        # add optimizer for SGD
+
+        # add optimizer for SGD (using Adam)
