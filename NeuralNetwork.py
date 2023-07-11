@@ -72,6 +72,10 @@ class Dqn():
         self.prev_action = 0
         self.prev_reward = 0
 
+    def select_action(self, state):
+
+
+
 
 
 

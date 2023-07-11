@@ -1,11 +1,21 @@
 import torch as nn
+import torchvision
 import cv2
 import NeuralNetwork
+import Adafruit_PCA9685
+from adafruit_motor import servo
+from adafruit_motor import motor
+
+import camera
+
+
+
+
 
 class AutonomousCar():
 
     def __init__(self):
-    #initialize all variables
+     #initialize all variables
 
     def img_processing(self, image):
         image = cv2.resize(3, (224, 224))
@@ -19,6 +29,7 @@ class AutonomousCar():
     def steer_angle(self, param):
         y = round((30 - 70) * param + 1 / 1 + 1 + 70, 2)
         return y
+
 
     def autopilot(self):
         #some stuff to drive autonomously
