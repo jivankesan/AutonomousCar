@@ -73,6 +73,14 @@ class Dqn():
         self.prev_reward = 0
 
     def select_action(self, state):
+        probs = f.softmax(self.model(Variable(state, volatile=True))*20) #temperature parameter = 7
+        action = probs.multinomial()
+        return action.data[0, 0]
+
+    def learn(self, batch_state, batch_next, batch_reward, batch_action):
+        
+
+
 
 
 
