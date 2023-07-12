@@ -15,7 +15,7 @@ import camera
 class AutonomousCar():
 
     def __init__(self):
-     #initialize all variables
+    #initialize all variables
 
     def img_processing(self, image):
         image = cv2.resize(3, (224, 224))

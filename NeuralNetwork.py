@@ -1,4 +1,5 @@
 import random
+import torch
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as f
@@ -45,46 +46,3 @@ class Network(nn.Module):
         return res
 
 
-class MemoryReplay(object):
-    # one time step is not sufficient for the model to learn long term correlations
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.memory = []
-
-    def push(self, event):  # event includes, last result, current state, last action, last reward
-        self.memory.append(event)
-        if len(self.memory) > self.capacity:
-            del self.memory[0]
-
-    def sample(self, batch_size):  # function to convert a random sample of training data into tensors
-        samples = zip(*random.sample(self.memory, batch_size))
-        return map(lambda x: Variable(nn.cat(x, 0)), samples)
-
-
-class Dqn():
-    def __init__(self, input_size=3, action=1, gamma=0.9):
-        self.gamma = gamma
-        self.reward_window = []
-        self.model = Network(input_size, action)
-        self.memory = MemoryReplay(100000)
-        self.optimizer = optim.Adam((self.model.parameters()), lr = 0.01) #can experiment with multiple optimizers
-        self.prev_state = nn.Tensor(input_size).unsqueeze(0)
-        self.prev_action = 0
-        self.prev_reward = 0
-
-    def select_action(self, state):
-        probs = f.softmax(self.model(Variable(state, volatile=True))*20) #temperature parameter = 7
-        action = probs.multinomial()
-        return action.data[0, 0]
-
-    def learn(self, batch_state, batch_next, batch_reward, batch_action):
-        
-
-
-
-
-
-
-
-
-        # add optimizer for SGD (using Adam)
