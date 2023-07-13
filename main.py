@@ -10,8 +10,6 @@ import camera
 
 
 
-
-
 class AutonomousCar():
 
     def __init__(self):
