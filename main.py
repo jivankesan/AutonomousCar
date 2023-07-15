@@ -13,6 +13,10 @@ import Camera
 class AutonomousCar():
 
     def __init__(self):
+        mean = []
+        std = []
+        self.normalize = torchvision.transforms.Normalize(mean = mean, std= std)
+
 #initialize all variables
 
     def img_processing(self, image):

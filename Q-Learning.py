@@ -38,7 +38,7 @@ class Dqn():
     def __init__(self, input_size=3, action=1, gamma=0.99, epsilon=1.0, epsilon_decay=0.995, epsilon_min=0.01):
         self.gamma = gamma
         self.reward_window = []
-        self.model = Network(input_size, action)
+        self.model = NeuralNetwork.Network(input_size, action)
         self.memory = MemoryReplay(100000)
         self.optimizer = optim.Adam((self.model.parameters()), lr = 0.01) #can experiment with multiple optimizers
         self.prev_state = nn.Tensor(input_size).unsqueeze(0)
