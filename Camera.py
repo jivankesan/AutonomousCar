@@ -10,37 +10,54 @@ import threading
 #Initialize the class:
 
 class Camera():
- #Set initial values for the camera parameters, such as capture width, capture height, frames per second (fps), and image dimensions.
-   def capture_image(image_width, image_height, image_channels):
-    #Create an array to store the captured image.
-    self.captured_image = np.zeros((image_height, image_width, image_channels), dtype=np.uint8)
+  def __init__(self):
+    self.image_width = 640
+    self.image_height = 640
+    self.image_channels = 3
+    self.output = np.empty((224, 224, 3), dtype=np.uint8)
+
+    try:
+      self.cap = cv2.VideoCapture(0)
+
+      re, img = self.cap.read()
+
+      if not re:
+        print("error reading from camera")
+        return
+
+      self.output = img
+      self.start()
+
+    except:
+      self.stop()
+      print("issue initializing camera")
+
+    atexit.register(self.stop())
 
 #Set up a method to capture frames from video feed
-  def live_stream():
-    self.video_capture = cv2.VideoCapture(0)
-
+  def live_stream(self):
     while True:
       #read current frame from cam
-      ret, frame = video_capture.read()
-
+      ret, frame = self.cap.read()
       #check if frame was read successfully
       if not ret:
         break
-
-      #display captured frame
-      cv2.imshow('Live Car Feed', frame)
-
-      #press q to close live feed
-      if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-    video.release()
-    cv2.destroyAllWindows()
+      else:
+        self.output = frame
 
 
+  def stop(self):
+    if self.cap.isOpened():
+      self.cap.release()
+      print('camera function stopped')
+
+  def start(self):
+    if not self.cap.isOpened():
+      self.cap.open()
 
 
-  def live_training():
+
+  def live_training(self):
     video_capture = cv2.VideoCapture(0)
     frame_count = 0
 
@@ -76,7 +93,7 @@ class Camera():
       if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-    video.release()
+    self.cap.release()
     cv2.destroyAllWindows()
     print("Total frames captured:", frame_count)
 
